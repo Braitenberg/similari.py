@@ -1,5 +1,5 @@
 tf_featurator
-flowers
+static/flowers
 tf_predictor
 volumes
 __pycache__

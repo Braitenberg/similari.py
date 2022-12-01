@@ -1,0 +1,15 @@
+<h1>Search for similair images</h1>
+
+<form action="/similarity", enctype="multipart/form-data", method="post">
+  <input type="file"
+  id="image" name="image"
+  accept="image/png, image/jpeg">
+
+  <div id="filePreview"></div>
+
+  <button type="button" onclick="submitForm()">Submit</button>
+</form>
+
+<div id="similarityResult"></div>
+
+<script src="/static/js/application.js"></script>

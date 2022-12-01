@@ -66,5 +66,14 @@ fields = [
 schema = CollectionSchema(fields)
 
 utility.drop_collection("images")
+
 collection = Collection("images", schema)
+collection.create_index(
+  field_name="embeddings",
+  index_params={
+    "metric_type":"L2",
+    "index_type":"IVF_FLAT",
+    "params":{"nlist":1024}
+})
+
 collection.insert([image_paths, embeddings])
