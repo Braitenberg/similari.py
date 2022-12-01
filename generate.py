@@ -3,7 +3,7 @@ import cv2
 import sys
 import numpy as np
 import tensorflow as tf
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 from tqdm import tqdm
 from random import shuffle
@@ -89,9 +89,13 @@ else:
     model.fit(train_images, train_labels, epochs=1)
     model.save(tf_model_path)
 
-## ADD FEATURE LAYER AND SAVE MODEL
-# WIP
-# model.layers.pop()
-# model = tf.keras.Model(model.input, model.layers[-1].output)
-# model.summary()
-# model.save("tf_featurator") # featureator returns a set of arbitrary feature tensors 
+
+# Replace the output with an embedding layer
+feature_generator = tf.keras.layers.Dense(256)(
+    model.layers[-2].output
+)
+
+tf.keras.Model(
+    inputs = model.input,
+    outputs=feature_generator
+).save("tf_featurator") # featurator returns 256 arbitrary `features`
