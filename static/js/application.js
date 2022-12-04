@@ -26,7 +26,7 @@ var imageInput = document.getElementById('image')
       .then((data) => {
         data.forEach((src) => {
           img = document.createElement("img")
-          img.src =`/static/${src}`
+          img.src =`/${src}`
           similarityResult.appendChild(img)
         })
       });

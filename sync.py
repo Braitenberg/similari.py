@@ -1,5 +1,6 @@
 import os
 import cv2
+import PIL
 from tqdm import tqdm
 
 import tensorflow as tf
@@ -19,7 +20,7 @@ from pymilvus import (
 # https://github.com/paucarre/tiefvision
 
 IMG_SIZE = 150
-MAIN_DIR = 'flowers'
+MAIN_DIR = 'static/flowers'
 
 model = tf.keras.models.load_model('tf_featurator')
 
@@ -36,7 +37,10 @@ for category in os.listdir(MAIN_DIR):
   for image_path in tqdm(os.listdir(location)):
     if i > 100:
       break
-    img = cv2.imread(f'{location}/{image_path}' ,cv2.IMREAD_COLOR)
+
+    img = open(f'{location}/{image_path}' , "rb")
+    img = PIL.Image.open(img)
+    img = np.array(img)
     img = cv2.resize(img, (IMG_SIZE,IMG_SIZE))
     images.append(np.array(img))
     image_paths.append(f'{location}/{image_path}')

@@ -37,8 +37,7 @@ def find_similair_images():
     data = [embeddings], 
     anns_field = "embeddings", 
     limit = 5, 
-    expr = None,
-    param = {"metric_type": "L2", "params": {"nprobe": 10}, "offset": 5},
+    param = {"metric_type": "L2"},
     consistency_level = "Strong",
     output_fields = ["image_path"]
   )
