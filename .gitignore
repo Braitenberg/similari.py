@@ -3,3 +3,4 @@ static/flowers
 tf_predictor
 volumes
 __pycache__
+.DS_Store

@@ -15,10 +15,6 @@ from pymilvus import (
     Collection,
 )
 
-
-
-# https://github.com/paucarre/tiefvision
-
 IMG_SIZE = 150
 MAIN_DIR = 'static/flowers'
 

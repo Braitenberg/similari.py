@@ -11,7 +11,8 @@ from os import path
 from sklearn.preprocessing import OneHotEncoder
 
 IMG_SIZE = 150
-MAIN_DIR = 'flowers'
+MAIN_DIR = 'static/flowers'
+EMBEDDING_DIM = 2048
 
 # expected folder structure:
 # MAIN_DIR
@@ -30,7 +31,7 @@ MAIN_DIR = 'flowers'
 ### CREATE MODEL ###
 input_dimensions = (IMG_SIZE, IMG_SIZE, 3)
 
-model = tf.keras.applications.vgg16.VGG16(weights=None, input_shape=input_dimensions, classes=5)
+model = tf.keras.applications.ResNet50(weights=None, input_shape=input_dimensions, classes=5)
 model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),loss='categorical_crossentropy',metrics=['accuracy'])
 
 ### LOAD DATA ###
@@ -86,16 +87,16 @@ tf_model_path = "tf_predictor"
 if (path.exists(tf_model_path) or len(sys.argv) > 1):
     model = tf.keras.models.load_model(tf_model_path)
 else:
-    model.fit(train_images, train_labels, epochs=1)
+    model.fit(train_images, train_labels, epochs=20)
     model.save(tf_model_path)
 
 
 # Replace the output with an embedding layer
-feature_generator = tf.keras.layers.Dense(256)(
+feature_generator = tf.keras.layers.Embedding(output_dim=EMBEDDING_DIM)(
     model.layers[-2].output
 )
 
 tf.keras.Model(
     inputs = model.input,
     outputs=feature_generator
-).save("tf_featurator") # featurator returns 256 arbitrary `features`
+).save("tf_featurator") # featurator returns x arbitrary `features`

@@ -1,0 +1,8 @@
+name: similarity
+channels:
+  - defaults
+dependencies:
+  - flask
+  - tensorflow-deps
+  - opencv-python
+prefix: /opt/homebrew/Caskroom/miniconda/base/envs/similarity
